@@ -1,0 +1,38 @@
+// Version: 1.0.0
+type ExternalBlob__246066408 = Blob;
+type Int__270357528 = Int__616954475;
+type Int__616954475 = Int;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type SubmissionId__581807613 = Nat;
+type SubmissionInternal__706061696 =
+  {
+    adminToken : Text;
+    collegeName : Text;
+    id : SubmissionId__581807613;
+    pdfFileId : ExternalBlob__246066408;
+    screenshotFileId : ExternalBlob__246066408;
+    var status : SubmissionStatus__724439462;
+    submittedAt : Timestamp__814088291;
+    submitterAge : Nat;
+    submitterEmail : Text;
+    submitterName : Text
+  };
+type SubmissionStatus__724439462 = {#approved; #pending; #rejected};
+type Time__796480547 = Int__270357528;
+type Time__900049286 = Time__796480547;
+type Timestamp__814088291 = Time__900049286;
+actor {
+  stable var ADMIN_EMAIL : Text;
+  stable ADMIN_PASSWORD : Text;
+  stable var B64_CHARS : [Char];
+  stable var CANISTER_BASE_URL : Text;
+  stable var MAILGUN_API_KEY : Text;
+  stable var MAILGUN_DOMAIN : Text;
+  stable submissions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?SubmissionInternal__706061696]];
+      var elementIndex : Nat__490723111
+    }
+};

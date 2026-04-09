@@ -1,0 +1,67 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type Timestamp = int;
+type SubmitResult = 
+ variant {
+   err: text;
+   ok: SubmissionId;
+ };
+type SubmissionStatus = 
+ variant {
+   approved;
+   pending;
+   rejected;
+ };
+type SubmissionId = nat;
+type Submission = 
+ record {
+   collegeName: text;
+   id: SubmissionId;
+   pdfFileId: ExternalBlob;
+   screenshotFileId: ExternalBlob;
+   status: SubmissionStatus;
+   submittedAt: Timestamp;
+   submitterAge: nat;
+   submitterEmail: text;
+   submitterName: text;
+ };
+type ExternalBlob = blob;
+type ActionResult = 
+ record {
+   message: text;
+   ok: bool;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  adminApprovePaper: (submissionId: SubmissionId, adminPassword: text) ->
+   (ActionResult);
+  adminLogin: (password: text) -> (bool) query;
+  adminRejectPaper: (submissionId: SubmissionId, adminPassword: text) ->
+   (ActionResult);
+  approvePaper: (submissionId: SubmissionId, token: text) -> (ActionResult);
+  getAllSubmissions: () -> (vec Submission) query;
+  getApprovedPapers: () -> (vec Submission) query;
+  rejectPaper: (submissionId: SubmissionId, token: text) -> (ActionResult);
+  submitPaper: (submitterName: text, submitterEmail: text, submitterAge: 
+   nat, collegeName: text, pdfFileId: ExternalBlob, screenshotFileId:
+   ExternalBlob) -> (SubmitResult);
+}

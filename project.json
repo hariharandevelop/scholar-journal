@@ -1,0 +1,21 @@
+{
+  "overview": "A professional academic journal submission platform where users can submit research papers with personal details, PDF upload, and screenshot image. Admin receives email notifications with one-click accept/reject links. Approved papers are displayed publicly on a Latest Papers gallery page.",
+  "features": [
+    "Paper submission form with name, email, age, college name fields",
+    "PDF upload with 20MB size limit and file type validation",
+    "Screenshot image upload with type validation",
+    "Admin email notification with Accept/Reject action links",
+    "Auto-updating public Latest Papers gallery",
+    "Acceptance email to users upon approval",
+    "Professional black, white, and grey design"
+  ],
+  "category": "productivity",
+  "tags": [
+    "journal",
+    "academic",
+    "paper-submission",
+    "upload",
+    "admin-workflow"
+  ],
+  "last_updated": "2026-04-09T15:10:25.557Z"
+}
